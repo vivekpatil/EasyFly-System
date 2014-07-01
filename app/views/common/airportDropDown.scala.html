@@ -1,0 +1,11 @@
+@(id: String, label: String, airports: List[Airport], className: String, value: String)
+
+<select name=@id id=@id class=@className>
+    @for(airport <- airports) {
+        @if(airport.airpt_id == value) {
+            <option value=@airport.airpt_id selected>@airport.airpt_name</option>
+        } else {
+            <option value=@airport.airpt_id>@airport.airpt_name</option>
+        }
+    }
+</select>

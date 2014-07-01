@@ -1,0 +1,22 @@
+@(airlineForm: Form[Airline])
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(common.twitterBootstrapInput.render) }
+
+@main("EasyFly") {
+    @common.errorForm(airlineForm)
+    <div class="row-fluid">
+        <div class="span6">
+            <h2>Add a new Airline</h2>
+            @form(routes.AirlineController.save()) {
+                @inputText(airlineForm("airln_id"), '_label -> "Airline ID") 
+                @inputText(airlineForm("airln_name"), '_label -> "Airline Name") 
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <a href=@routes.AirlineController.index() class="btn">Cancel</a>
+                </div>
+            }
+        </div>
+        <div class="span6"></div>
+    </div>
+}

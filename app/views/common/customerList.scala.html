@@ -1,0 +1,11 @@
+@(id: String, label: String, customers: List[Customer], className: String, value: String)
+
+<select name=@id id=@id class=@className>
+    @for(customer <- customers) {
+        @if(customer.cust_id == value) {
+            <option value=@customer.cust_id selected>@customer.cust_surname (ID: @customer.cust_id)</option>
+        } else {
+            <option value=@customer.cust_id>@customer.cust_surname (ID: @customer.cust_id)</option>
+        }
+    }
+</select>

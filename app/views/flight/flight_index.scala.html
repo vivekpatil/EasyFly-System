@@ -1,0 +1,49 @@
+@(flights: List[Flight])
+
+@main("EasyFly") {
+    @common.error()
+    <div id="search">
+        <div class="span6"></div>
+        <div class="span6"><a href=@routes.FlightController.create() class="btn btn-primary pull-right">New Flight</a></div>
+    </div>
+    <table class="table index-table" id="data-table">
+        <thead></thead>
+        <tbody>
+        <th></th><th>Flight</th><th>Route</th><th>Departure Date</th><th>Arrival</th><th>Departure</th><th>Aircraft</th><th>Aircraft Type</th><th></th><th></th>
+        @for(flight <- flights) {
+            <tr class="route-row">
+                <td><a id=@flight.flight_id.toString().concat("-show-segment") href="javascript:void(0);"><i class="icon-arrow-down"></i>Segments</a></td>
+                <td>@flight.flight_id</td>
+                <td>@flight.route_id</td>
+                <td>@flight.dep_date.format("dd MMM yyyy")</td>
+                <td>@String.format("%04d", int2Integer(flight.arr_time))</td>
+                <td>@String.format("%04d", int2Integer(flight.dep_time))</td>
+                <td>@flight.aircraft_id</td>
+                <td>@flight.aircr_type_id</td>
+                <td>
+                    <a href=@routes.FlightController.edit(flight.flight_id)>
+                        <i class="icon-pencil"></i> Edit
+                    </a>
+                </td>
+                <td>
+                    <a href="" displayname=@flight.flight_id path=@routes.FlightController.delete(flight.flight_id) role="button" data-toggle="modal" data-target="#delete-modal" class="delete-link">
+                        <i class="icon-remove"></i> Delete
+                    </a>
+                </td>
+            </tr>
+            @for(segment <- flight.segments) {
+                <tr class='hide @flight.flight_id.toString().concat("-segment")'>
+                    <th>Segments:</th>
+                    <td></td>
+                    <td>@segment.route_id</td>
+                    <td>@segment.dep_date.format("dd MMM yyyy")</td>
+                    <td>@String.format("%04d", int2Integer(segment.arr_time))</td>
+                    <td>@String.format("%04d", int2Integer(segment.dep_time))</td>
+                    <td></td><td></td><td></td><td></td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+    @common.delete_confirmation(routes.FlightController.index(), "Flight")
+}

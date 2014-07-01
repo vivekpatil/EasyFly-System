@@ -1,0 +1,10 @@
+@(cancelPath: Call, entity: String)
+
+<div class="modal hide" id="delete-modal">
+    <div class="modal-header">Delete @entity</div>
+    <div class="modal-body">Are you sure you want to delete @entity <span id="deleting-name"></span>?</div>
+    <div class="modal-footer">
+        <a href="" class="btn btn-primary" id="delete">Delete</a>
+        <a href=@cancelPath class="btn">Cancel</a>
+    </div>
+</div>

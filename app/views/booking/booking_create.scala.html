@@ -1,0 +1,45 @@
+@(airports: List[Airport], customers: List[Customer])
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(common.twitterBootstrapInput.render) }
+
+@main("EasyFly") {
+    <h2>Create a new Booking</h2>
+    @form(routes.BookingController.flights()) {
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="control-group">                   
+                    <div class="controls">
+                        @common.airportList("origin", "Origin", airports, "", "")
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        @common.airportList("destination", "Destination", airports, "", "")
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for= "class" >Class</label>
+                    <div class="controls">
+                        <select id="class" name="class">
+                            <option value="E">Economy class</option>
+                            <option value="B">Business class</option>
+                            <option value="F">First class</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for= "class" >Customer</label>
+                    <div class="controls">
+                        @common.customerList("customer-id", "Customer ID", customers, "", "")
+                    </div>
+                </div>                
+                <div class="form-actions">
+                    <button id="get-flights" type="submit" class="btn btn-primary">Get Flights</button>
+                    <a href=@routes.BookingController.index() class="btn">Cancel</a>
+                </div>
+            </div>
+            <div id="flights"></div>
+        </div>
+    }
+}

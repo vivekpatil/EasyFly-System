@@ -1,0 +1,16 @@
+EasyFly Flight System
+=====================================
+
+EasyFly is a flight maintenance and booking system. It allows different kinds of authorized users to schedule and maintain airports, airlines, routes and flights. 
+It also allows customers to check flight schedules and availability, book tickets, select seats, and generate boarding passes.
+
+Languages / tools / technologies used:
+- Play Framework for Java
+- Oracle
+- Bootstrap
+- JQuery
+
+To run this application you need:
+1. VPN connection to the Swinburne network
+2. Play framework installed
+3. If you are running this with a fresh Oracle account, first run schema.sql and proc.sql on the new account, and change the credentials in the configuration file (application.conf) 

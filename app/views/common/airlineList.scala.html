@@ -1,0 +1,16 @@
+@(id: String, airlines: List[Airline], form: Form[_ <: Object])
+
+<div class="control-group">
+    <label class="control-label" for=@id>Airline</label>
+    <div class="controls">
+        <select name=@id>
+            @for(airline <- airlines) {
+                @if(airline.airln_id == form(id).value()) {
+                    <option value=@airline.airln_id selected>@airline.airln_name</option>
+                } else {
+                    <option value=@airline.airln_id>@airline.airln_name</option>
+                }
+            }
+        </select>
+    </div>
+</div>

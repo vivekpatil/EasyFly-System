@@ -1,0 +1,16 @@
+@(id: String, routes : List[Route], form: Form[_ <: Object])
+
+<div class="control-group">
+    <label class="control-label" for=@id>Route</label>
+    <div class="controls">
+        <select name=@id>
+            @for(route <- routes) {
+                @if(route.route_id == form(id).value()) {
+                    <option value=@route.route_id selected>@route.route_id</option>
+                } else {
+                    <option value=@route.route_id>@route.route_id</option>
+                }
+            }
+        </select>
+    </div>
+</div>

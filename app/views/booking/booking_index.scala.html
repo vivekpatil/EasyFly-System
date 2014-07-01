@@ -1,0 +1,50 @@
+@(tickets: List[Ticket])
+
+@main("EasyFly") {
+    @common.error()
+    <div id="search">
+        <div class="span6"></div>
+        <div class="span6"><a href=@routes.BookingController.create() class="btn btn-primary pull-right">New Booking</a></div>
+    </div>
+        <table class="table index-table" id="data-table">
+        <thead></thead>
+        <tbody>
+        <th></th><th>Ticket No</th><th>Fare</th><th>Issue Date</th><th>Customer</th>
+        <th>Title</th><th>Surname</th><th>Phone</th><th></th><th></th>
+        @for(ticket <- tickets) {
+            <tr class="route-row">
+                <td><a id=@(ticket.ticket_no)-show-segment href="javascript:void(0);"><i class="icon-arrow-down"></i>Show</a></td>
+                <td>@ticket.ticket_no</td>
+                <td>@ticket.fare</td>
+                <td>@ticket.issue_date.format("dd MMM yyyy")</td>
+                <td>@ticket.cust_id</td>
+                <td>@ticket.pass_title</td>
+                <td>@ticket.pass_surname</td>
+                <td>@ticket.pass_phone</td>
+                <td>
+                    <a href=@routes.BookingController.view(ticket.ticket_no)><i class="icon-plane"></i> View</a>
+                </td>
+                <td>
+                    <a href="" displayname=@ticket.ticket_no path="@routes.BookingController.delete(ticket.ticket_no)" role="button" data-toggle="modal" data-target="#delete-modal" class="delete-link">
+                        <i class="icon-remove"></i> Delete
+                    </a>
+                </td>
+            </tr>
+            @for(pass <- ticket.boardingPasses) {
+                <tr class='hide @(ticket.ticket_no)-segment'>
+                    <th colspan="2">Boarding Pass: @pass.bpass_no</th>
+                    <td colspan="2">For Segment: @pass.seg_no</td>
+                    <td colspan="3">Departing on: @pass.dep_date.format("dd MMM yyyy")</td>
+                    <td colspan="2">Class: @(pass.class_id match {
+                        case "E" => "Economy"
+                        case "F" => "First"
+                        case "B" => "Business"
+                    })</td>
+                    <td></td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+    @common.delete_confirmation(routes.BookingController.index(), "Booking")
+}

@@ -1,0 +1,23 @@
+@(aircraftTypeForm: Form[AircraftType])
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(common.twitterBootstrapInput.render) }
+
+@main("EasyFly") {
+    @common.errorForm(aircraftTypeForm)
+    <div class="row-fluid">
+        <div class="span6">
+            <h2>Add a new Aircraft Type</h2>
+            @form(routes.AircraftTypeController.save()) {
+                @inputText(aircraftTypeForm("aircr_type_id"), '_label -> "AircraftType ID") 
+                @inputText(aircraftTypeForm("aircraft_type"), '_label -> "Aircraft Type") 
+                @inputText(aircraftTypeForm("maximum_seats"), '_label -> "Maximum seats")
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <a href=@routes.AircraftTypeController.index() class="btn">Cancel</a>
+                </div>
+            }
+        </div>
+        <div class="span6"></div>
+    </div>
+}

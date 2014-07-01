@@ -1,0 +1,39 @@
+@(customerForm: Form[Customer])
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(common.twitterBootstrapInput.render) }
+
+@main("EasyFly") {
+    @common.errorForm(customerForm)
+    <div class="row-fluid">
+        <div class="span6">
+            <h2>Add a new Customer</h2>
+            @form(routes.CustomerController.save()) {
+                @inputText(customerForm("cust_id"), '_label -> "Customer ID") 
+                @inputText(customerForm("cust_surname"), '_label -> "Surname") 
+                @inputText(customerForm("cust_credlim"), '_label -> "Credit limit")
+                @inputText(customerForm("cust_addr1"), '_label -> "Address1") 
+                @inputText(customerForm("cust_addr2"), '_label -> "Address2") 
+                @inputText(customerForm("cust_addr3"), '_label -> "Address3") 
+                @inputText(customerForm("cust_inits"), '_label -> "Initials") 
+                <div class="control-group">
+                    <label class="control-label" for="cust_title">Title</label>
+                    <div class="controls">
+                        <select name="cust_title">
+                            <option value="Mr">Mr</option>
+                            <option value="Mrs">Mrs</option>
+                            <option value="Ms">Ms</option>
+                            <option value="Dr">Dr</option>
+                        </select>
+                    </div>
+                </div>
+                @inputText(customerForm("cust_phone"), '_label -> "Contact number") 
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <a href=@routes.CustomerController.index() class="btn">Cancel</a>
+                </div>
+            }
+        </div>
+        <div class="span6"></div>
+    </div>
+}

@@ -1,0 +1,65 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index
+
+GET     /airline                    controllers.AirlineController.index
+GET     /airline/:id/edit           controllers.AirlineController.edit(id: String)
+GET     /airline/:id/update         controllers.AirlineController.update(id: String)
+GET     /airline/:id/delete         controllers.AirlineController.delete(id: String)
+GET     /airline/create             controllers.AirlineController.create
+GET     /airline/save               controllers.AirlineController.save
+
+GET     /airport                    controllers.AirportController.index
+GET     /airport/save               controllers.AirportController.save
+GET     /airport/create             controllers.AirportController.create
+GET     /airport/:id/edit           controllers.AirportController.edit(id: String)
+GET     /airport/:id/update         controllers.AirportController.update(id: String)
+GET     /airport/:id/delete         controllers.AirportController.delete(id: String)
+
+GET     /route                      controllers.RouteController.index
+GET     /route/create               controllers.RouteController.create
+GET     /route/:id/edit             controllers.RouteController.edit(id: String)
+GET     /route/:id/delete           controllers.RouteController.delete(id: String)
+GET     /route/save                 controllers.RouteController.save
+GET     /route/:id/update           controllers.RouteController.update(id: String)
+
+GET     /aircraftType               controllers.AircraftTypeController.index
+GET     /aircraftType/create        controllers.AircraftTypeController.create
+GET     /aircraftType/:id/edit      controllers.AircraftTypeController.edit(id: String)
+GET     /aircraftType/:id/delete    controllers.AircraftTypeController.delete(id: String)
+GET     /aircraftType/save          controllers.AircraftTypeController.save
+GET     /aircraftType/:id/update    controllers.AircraftTypeController.update(id: String)
+
+GET     /aircraft                   controllers.AircraftController.index
+GET     /aircraft/create            controllers.AircraftController.create
+GET     /aircraft/:id/edit          controllers.AircraftController.edit(id: String)
+GET     /aircraft/:id/delete        controllers.AircraftController.delete(id: String)
+GET     /aircraft/save              controllers.AircraftController.save
+GET     /aircraft/:id/update        controllers.AircraftController.update(id: String)
+
+GET     /flight                     controllers.FlightController.index
+GET     /flight/create              controllers.FlightController.create
+GET     /flight/:id/edit            controllers.FlightController.edit(id: Integer)
+GET     /flight/:id/delete          controllers.FlightController.delete(id: Integer)
+GET     /flight/save                controllers.FlightController.save
+GET     /flight/:id/update          controllers.FlightController.update(id: Integer)
+
+GET     /customer                   controllers.CustomerController.index
+GET     /customer/create            controllers.CustomerController.create
+GET     /customer/save              controllers.CustomerController.save
+GET     /customer/:id/edit          controllers.CustomerController.edit(id: String)
+GET     /customer/:id/update        controllers.CustomerController.update(id: String)
+GET     /customer/:id/delete        controllers.CustomerController.delete(id: String)
+
+GET     /booking                    controllers.BookingController.index
+GET     /booking/create             controllers.BookingController.create
+GET     /booking/save               controllers.BookingController.save
+POST    /booking/flights            controllers.BookingController.flights
+GET     /booking/view               controllers.BookingController.view(id: Integer)
+GET     /booking/:id/delete         controllers.BookingController.delete(id: Integer)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

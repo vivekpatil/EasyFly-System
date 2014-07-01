@@ -1,0 +1,46 @@
+@(ticket: Ticket, ticketInfos: List[TicketInfo])
+
+@main("EasyFly") {
+    <div class="row-fluid">
+        <h3>Passenger Booking Details</h3>
+        <table class="ticket-table">
+            <tbody>
+                <tr>
+                    <td>Cust Code: @ticket.cust_id</td>
+                    <td>Init: @ticket.pass_inits</td>
+                    <td>Title: @ticket.pass_title</td>                    
+                    <td>Surname: @ticket.pass_surname</td>
+                    <td>Phone: @ticket.pass_phone</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="ticket-table">
+            <tbody>
+                <tr>
+                    <td>Ticket No: @ticket.ticket_no</td>
+                    <td>Fare: @ticket.fare</td>
+                    <td>Issued: @ticket.issue_date.format("dd MMM yyyy")</td>
+                    <td>No of Passengers: 1</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table">
+            <tbody>
+                <th>Dep Date</th><th>From</th><th>To</th><th>Route</th>
+                <th>Departs</th><th>Arrives</th><th>Class</th><th>Boarding Pass No</th>
+                @for(info <- ticketInfos) {
+                    <tr>
+                        <td>@info.dep_date</td>
+                        <td>@info.airpt_id_from</td>
+                        <td>@info.airpt_id_to</td>
+                        <td>@info.route_id</td>
+                        <td>@String.format("%04d", int2Integer(info.dep_time))</td>
+                        <td>@String.format("%04d", int2Integer(info.arr_time))</td>
+                        <td>@info.class_id</td>
+                        <td>@info.bpass_no</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

@@ -1,0 +1,22 @@
+@(flights : List[FlightInfo])
+<table class="table table-striped index-table" id="data-table">
+    <thead></thead>
+    <tbody>
+    <th>Route ID</th><th>Flight ID</th><th>Departure Date</th><th>Departure Time</th><th>Arrival Time</th><th>Seats Available</th><th></th>
+        @for(flight <- flights) {
+            <tr>
+                <td>@flight.route_id</td>
+                <td>@flight.flight_id</td>
+                <td>@flight.dep_date</td>
+                <td>@flight.dep_time</td>
+                <td>@flight.arr_time</td>
+                <td>@flight.seats_avail</td>
+                @if(flight.seats_avail == 0) {
+                    <td>No Seats Available</td>
+                } else {
+                    <td><a class="btn book" href="javascript:void(0)">Book <i class="icon-ok"></i></a></td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

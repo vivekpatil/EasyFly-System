@@ -1,0 +1,7 @@
+@import helper._
+
+@if(flash.containsKey("error")) {
+    <div class="alert alert-error">
+        @flash.get("error")<br/>
+    </div>
+}

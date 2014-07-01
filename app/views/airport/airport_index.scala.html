@@ -1,0 +1,33 @@
+@(airports: List[Airport])
+
+@main("Welcome to EasyFly") {
+    @common.error()
+    <div id="search">
+        <div class="span6"></div>
+        <div class="span6"><a href=@routes.AirportController.create() class="btn btn-primary pull-right">New Airport</a></div>
+    </div>
+    <table class="table table-striped index-table" id="data-table">
+        <thead></thead>
+        <tbody>
+        <th>Airport ID</th><th>Airport Name</th><th>Country</th><th></th><th></th>
+        @for(airport <- airports) {
+            <tr>
+                <td>@airport.airpt_id</td>
+                <td>@airport.airpt_name</td>
+                <td>@airport.country</td>
+                <td>
+                    <a href=@routes.AirportController.edit(airport.airpt_id) >
+                        <i class="icon-pencil"></i> Edit
+                    </a>
+                </td>
+                <td>
+                    <a href="" displayname=@airport.airpt_name path=@routes.AirportController.delete(airport.airpt_id) role="button" data-toggle="modal" data-target="#delete-modal" class="delete-link">
+                        <i class="icon-remove"></i> Delete
+                    </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    @common.delete_confirmation(routes.AirportController.index(), "Airport")
+}

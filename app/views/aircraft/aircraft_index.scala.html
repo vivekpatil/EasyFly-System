@@ -1,0 +1,36 @@
+@(aircrafts: List[Aircraft])
+
+@main("EasyFly") {
+    @common.error()
+    <div id="search">
+        <div class="span6"></div>
+        <div class="span6"><a href=@routes.AircraftController.create() class="btn btn-primary pull-right">New Aircraft</a></div>
+    </div>
+    <table class="table table-striped index-table" id="data-table">
+        <thead></thead>
+        <tbody>
+        <th>Aircraft ID</th><th>Aircraft name</th><th>Aircraft Type</th><th>Class F seats</th><th>Class B seats</th><th>Class E seats</th><th></th><th></th>
+        @for(aircraft <- aircrafts) {
+            <tr>
+                <td>@aircraft.aircraft_id</td>
+                <td>@aircraft.aircraft_name</td>
+                <td>@aircraft.aircr_type_id</td>
+                <td>@aircraft.seats_qty_F</td>
+                <td>@aircraft.seats_qty_B</td>
+                <td>@aircraft.seats_qty_E</td>
+                <td>
+                    <a href=@routes.AircraftController.edit(aircraft.aircraft_id)>
+                        <i class="icon-pencil"></i> Edit
+                    </a>
+                </td>
+                <td>
+                    <a href="" displayname=@aircraft.aircraft_name path=@routes.AircraftController.delete(aircraft.aircraft_id) role="button" data-toggle="modal" data-target="#delete-modal" class="delete-link">
+                        <i class="icon-remove"></i> Delete
+                    </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    @common.delete_confirmation(routes.AircraftController.index(), "Aircraft")
+}

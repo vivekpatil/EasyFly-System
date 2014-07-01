@@ -1,0 +1,57 @@
+@(routeList: List[Route])
+
+@main("EasyFly") {
+    @common.error()
+    <div id="search">
+        <div class="span6"></div>
+        <div class="span6"><a href=@routes.RouteController.create() class="btn btn-primary pull-right">New Route</a></div>
+    </div>
+    <table class="table index-table" id="data-table">
+        <thead></thead>
+        <tbody>
+        <th></th><th>Route ID</th><th>Origin</th><th>Destination</th><th>Departure</th>
+        <th>Arrival</th><th>Airline ID</th><th>Day</th><th></th><th></th>
+        @for(route <- routeList) {
+            <tr class="route-row">
+                <td><a id=@route.route_id.concat("-show-segment") href="javascript:void(0);"><i class="icon-arrow-down"></i>Show</a></td>
+                <td>@route.route_id</td>
+                <td>@route.airpt_id_from</td>
+                <td>@route.airpt_id_to</td>
+                <td>@String.format("%04d", int2Integer(route.dep_time))</td>
+                <td>@String.format("%04d", int2Integer(route.arr_time))</td>
+                <td>@route.airln_id</td>
+                <td>@(route.day_no.intValue match {
+                        case 1 => "Monday"
+                        case 2 => "Tuesday"
+                        case 3 => "Wednesday"
+                        case 4 => "Thursday"
+                        case 5 => "Friday"
+                        case 6 => "Saturday"
+                        case 7 => "Sunday"
+                    })
+                </td>
+                <td>
+                    <a href=@routes.RouteController.edit(route.route_id)><i class="icon-pencil"></i> Edit</a>
+                </td>
+                <td>
+                    <a href="" displayname=@route.route_id path=@routes.RouteController.delete(route.route_id) role="button" data-toggle="modal" data-target="#delete-modal" class="delete-link">
+                        <i class="icon-remove"></i> Delete
+                    </a>
+                </td>
+            </tr>
+            @for(segment <- route.segments) {
+                <tr class='hide @route.route_id.concat("-segment")'>
+                    <th>Segments:</th>
+                    <td></td>
+                    <td>@segment.airpt_id_from</td>
+                    <td>@segment.airpt_id_to</td>
+                    <td>@String.format("%04d", int2Integer(segment.dep_time))</td>
+                    <td>@String.format("%04d", int2Integer(segment.arr_time))</td>
+                    <td></td><td></td><td></td><td></td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+    @common.delete_confirmation(routes.RouteController.index(), "Route")
+}

@@ -1,0 +1,32 @@
+@(flight: Flight, flightForm: Form[Flight], aircraftTypes: List[AircraftType], aircrafts: List[Aircraft], routeList: List[Route])
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(common.twitterBootstrapInput.render) }
+
+@main("EasyFly") {
+    @common.errorForm(flightForm)
+    <div class="row-fluid">
+        <div class="span6">
+            <h2>Edit Flight</h2>
+            @form(routes.FlightController.update(flight.flight_id)) {
+                <div class="clearfix">
+                    <label for="aircraft_id">Flight ID</label>
+                    <div class="input">
+                        <input type="text" name="flight_id" value=@flight.flight_id disabled="disabled">
+                    </div>
+                </div>
+                @common.routeList("route_id", routeList, flightForm)  
+                @inputText(flightForm("dep_date"), '_label -> "Departure date")
+                @inputText(flightForm("arr_time"), '_label -> "Arrival time")
+                @inputText(flightForm("dep_time"), '_label -> "Departure time")
+                @common.aircraftList("aircraft_id", aircrafts, flightForm) 
+                <input type="hidden" name="flight_id" value=@flight.flight_id>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <a href=@routes.FlightController.index() class="btn">Cancel</a>
+                </div>
+            }
+        </div>
+        <div class="span6"></div>
+    </div>            
+}

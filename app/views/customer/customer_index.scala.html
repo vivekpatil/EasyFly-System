@@ -1,0 +1,37 @@
+@(customers: List[Customer])
+
+@main("EasyFly") {
+    @common.error()
+    <div id="search">
+        <div class="span6"></div>
+        <div class="span6"><a href=@routes.CustomerController.create() class="btn btn-primary pull-right">New Customer</a></div>
+    </div>
+    <table class="table table-striped index-table" id="data-table">
+        <thead></thead>
+        <tbody>
+        <th>Customer</th><th>Title</th><th>Initial</th><th>Surname</th>
+        <th>Address</th><th>Phone</th><th></th><th></th>
+        @for(cust <- customers) {
+            <tr>
+                <td>@cust.cust_id</td>
+                <td>@cust.cust_title</td>
+                <td>@cust.cust_inits</td>
+                <td>@cust.cust_surname</td>
+                <td>@cust.cust_addr1, @cust.cust_addr2, @cust.cust_addr3</td>
+                <td>@cust.cust_phone</td>
+                <td>
+                    <a href=@routes.CustomerController.edit(cust.cust_id)>
+                        <i class="icon-pencil"></i> Edit
+                    </a>
+                </td>
+                <td>
+                    <a href="" displayname=@cust.cust_id path=@routes.CustomerController.delete(cust.cust_id) role="button" data-toggle="modal" data-target="#delete-modal" class="delete-link">
+                        <i class="icon-remove"></i> Delete
+                    </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    @common.delete_confirmation(routes.CustomerController.index(), "Customer")
+}
